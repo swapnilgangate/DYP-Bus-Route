@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SEO Meta Tags -->
+  <title>Dr. D. Y. Patil Polytechnic | College Bus Routes</title>
+  <meta name="description" content="Official website of Dr. D. Y. Patil Polytechnic, Kasaba Bawada, Kolhapur. Find your daily pickup route, schedule, driver contact and fee details.">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <style>
+    :root {
+      --bg-color: #f5f5f7;
+      --text-color: #1d1d1f;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 10px 40px rgba(0, 0, 0, 0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Liquid Background */
+    .liquid-bg {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      top: 0; left: 0;
+      background: radial-gradient(circle at 15% 50%, rgba(0, 113, 227, 0.08), transparent 50%),
+                  radial-gradient(circle at 85% 30%, rgba(94, 234, 212, 0.08), transparent 50%);
+      z-index: -1;
+      pointer-events: none;
+      animation: liquidAmbient 12s ease-in-out infinite alternate;
+    }
+    @keyframes liquidAmbient {
+      0% { transform: scale(1) translate(0px, 0px); }
+      100% { transform: scale(1.1) translate(-20px, 20px); }
+    }
+
+    .upper-bar {
+      background-color: rgba(29, 29, 31, 0.85); /* Apple dark nav */
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,.25);
+    }
+    .upper-bar .logo { height: 80px; }
+
+    /* Top Poster Carousel */
+    .carousel-container { 
+      display: grid; 
+      max-width: 1400px; 
+      margin: 40px auto; 
+      border-radius: 24px; 
+      box-shadow: var(--shadow); 
+      width: calc(100% - 40px); 
+      background: transparent; 
+      overflow: hidden; 
+      position: relative; 
+    }
+    .carousel-slide { 
+      grid-area: 1 / 1; 
+      opacity: 0; 
+      visibility: hidden; 
+      transform: scale(1.02); 
+      transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.2s; 
+      z-index: 1; 
+    }
+    .carousel-slide.active { 
+      opacity: 1; 
+      visibility: visible; 
+      transform: scale(1); 
+      z-index: 2; 
+    }
+    .carousel-slide img { 
+      width: 100%; 
+      height: auto; 
+      object-fit: contain; 
+      display: block; 
+    }
+    .prev, .next { 
+      cursor: pointer; 
+      position: absolute; 
+      top: 50%; 
+      transform: translateY(-50%); 
+      color: rgba(255, 255, 255, 0.8); 
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6); 
+      font-weight: 300; 
+      font-size: 36px; 
+      transition: all 0.3s ease; 
+      user-select: none; 
+      background: rgba(0,0,0,0.2); 
+      border: none; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      width: 50px; 
+      height: 50px; 
+      z-index: 10;
+      border-radius: 50%;
+    }
+    .prev { left: 15px; }
+    .next { right: 15px; }
+    .prev:hover, .next:hover { 
+      color: rgba(255, 255, 255, 1); 
+      background: rgba(0,0,0,0.5);
+      transform: translateY(-50%) scale(1.1); 
+    }
+
+    h1.page-title {
+      text-align: center;
+      margin: 40px 0 5px;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .page-subtitle {
+      text-align: center;
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      color: #86868b;
+      margin-bottom: 20px;
+    }
+
+    /* Stats Strip */
+    .stats-strip {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 2rem auto;
+      max-width: 800px;
+    }
+    .stat-item {
+      background: rgba(255,255,255,.5);
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: 12px;
+      padding: .75rem 1.5rem;
+      text-align: center;
+      min-width: 120px;
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
+    }
+    .stat-item strong {
+      display: block;
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1;
+      color: #001f3f;
+    }
+    .stat-item span {
+      font-size: .75rem;
+      color: #64748b;
+      display: block;
+      margin-top: .4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    /* Search Bar */
+    .search-container { 
+      max-width: 600px; 
+      margin: 0 auto 50px; 
+      position: relative; 
+      padding: 0 20px; 
+      z-index: 10; 
+    }
+    #searchInput { 
+      width: 100%; 
+      padding: 16px 20px 16px 50px; 
+      font-size: 18px; 
+      border: 1px solid rgba(0,0,0,0.1); 
+      border-radius: 30px; 
+      background: rgba(255, 255, 255, 0.6); 
+      backdrop-filter: blur(15px); 
+      -webkit-backdrop-filter: blur(15px); 
+      color: var(--text-color); 
+      transition: all 0.3s ease; 
+      outline: none; 
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+    }
+    #searchInput:focus { 
+      background: rgba(255,255,255,0.9); 
+      border-color: #0071e3; 
+      box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2); 
+    }
+    .search-icon { 
+      position: absolute; 
+      left: 35px; 
+      top: 50%; 
+      transform: translateY(-50%); 
+      width: 20px; 
+      height: 20px; 
+      color: #86868b; 
+      pointer-events: none; 
+    }
+
+
+
+
+    /* Gallery Card Layout */
+    .route-gallery a {
+      flex: 0 0 calc((100% - 90px) / 4);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border: 1px solid rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(12px);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;
+    }
+    .route-gallery a:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 24px 48px rgba(11,42,107,0.18);
+      border-color: #bfdbfe;
+    }
+
+    /* Route Name Header on Gallery Card */
+    .gallery-card-header {
+      background: linear-gradient(135deg, #0b2a6b 0%, #1a4db6 100%);
+      padding: 14px 16px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .gallery-card-title {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.2;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .gallery-card-badge {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      border-radius: 999px;
+      padding: 3px 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* The image area */
+    .route-button {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: rgba(240,244,248,0.8);
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .route-button::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -150%;
+      width: 50%; height: 100%;
+      background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
+      transform: skewX(-25deg);
+      transition: none;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .route-gallery a:hover .route-button::after {
+      animation: glassShine 1.8s cubic-bezier(0.25,1,0.5,1);
+    }
+
+    /* Gradient card for routes without an image */
+    .route-button.no-image {
+      background: linear-gradient(135deg, #1a4db6 0%, #2563eb 50%, #0ea5e9 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .route-button.no-image .no-img-icon {
+      font-size: 3rem;
+      opacity: 0.4;
+    }
+
+    /* Gallery card footer with driver */
+    .gallery-card-footer {
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      background: rgba(255,255,255,0.5);
+    }
+    .gallery-card-footer .g-avatar {
+      width: 26px; height: 26px;
+      background: linear-gradient(135deg,#1a4db6,#2563eb);
+      border-radius: 50%;
+      display: grid; place-items: center;
+      color: #fff; font-size: 0.6rem; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .gallery-card-footer .g-driver {
+      font-size: 0.78rem; color: #334155;
+      font-weight: 600;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .gallery-card-footer .g-time {
+      margin-left: auto;
+      font-size: 0.72rem; color: #1d4ed8;
+      font-weight: 700; white-space: nowrap;
+    }
+
+    @keyframes glassShine {
+      0% { left: -150%; }
+      100% { left: 200%; }
+    }
+
+    /* Horizontal Marquee Slider */
+    .routes-section {
+      margin: 2.5rem 0 5rem;
+      padding: 0;
+      position: relative;
+      z-index: 10;
+      overflow: hidden;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding-bottom: 1rem;
+      padding: 0 3rem 1rem;
+    }
+    .section-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1d1d1f;
+      margin: 0;
+    }
+    .results-count {
+      font-size: .9rem;
+      color: #0b2a6b;
+      background: #e2e8f0;
+      padding: .4rem 1rem;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    /* Marquee track */
+    .marquee-viewport {
+      overflow-x: auto;
+      overflow-y: hidden;
+      position: relative;
+      width: 100%;
+      cursor: grab;
+      scroll-behavior: auto;
+    }
+    
+    /* Custom Scrollbar for better aesthetics */
+    .marquee-viewport::-webkit-scrollbar {
+      height: 8px;
+    }
+    .marquee-viewport::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+    .marquee-viewport::-webkit-scrollbar-thumb {
+      background: rgba(11, 42, 107, 0.3);
+      border-radius: 10px;
+    }
+    .marquee-viewport::-webkit-scrollbar-thumb:hover {
+      background: rgba(11, 42, 107, 0.5);
+    }
+    
+    .marquee-track {
+      display: flex;
+      gap: 1.5rem;
+      padding: 2rem 3rem 2.5rem;
+      width: max-content;
+    }
+
+    /* Liquid Glass Route Cards */
+    .route-card {
+      flex: 0 0 300px;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 24px;
+      box-shadow:
+        0 8px 32px rgba(11, 42, 107, 0.12),
+        inset 0 1px 0 rgba(255,255,255,0.6),
+        inset 0 -1px 0 rgba(255,255,255,0.1);
+      overflow: hidden;
+      transition: transform .4s cubic-bezier(0.16,1,0.3,1), box-shadow .4s, border-color .3s;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+    }
+    .route-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow:
+        0 20px 50px rgba(11, 42, 107, 0.2),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+      border-color: rgba(255,255,255,0.8);
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #0b2a6b 0%, #1a4db6 100%);
+      padding: 1.25rem 1.5rem 1rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: .5rem;
+    }
+    .route-badge {
+      background: rgba(255,255,255,.2);
+      border: 1px solid rgba(255,255,255,.3);
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      border-radius: 999px;
+      padding: .25rem .8rem;
+      white-space: nowrap;
+    }
+    .card-route-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      flex: 1;
+    }
+    .card-route-name span {
+      display: block;
+      font-size: .8rem;
+      font-weight: 400;
+      color: rgba(255,255,255,.7);
+      margin-top: .2rem;
+    }
+    .card-body {
+      padding: 1.25rem 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+    }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: .85rem;
+      color: #475569;
+    }
+    .card-meta .meta-icon {
+      width: 26px;
+      height: 26px;
+      background: #eff6ff;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: .8rem;
+      color: #1d4ed8;
+      flex-shrink: 0;
+    }
+    .card-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.4);
+    }
+    .card-driver {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .card-avatar {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg,#1a4db6,#2563eb);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: .7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .card-driver-name {
+      font-size: .85rem;
+      color: #1e293b;
+      font-weight: 600;
+    }
+    .view-btn {
+      display: flex;
+      align-items: center;
+      gap: .3rem;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: .8rem;
+      font-weight: 700;
+      border-radius: 8px;
+      padding: .4rem .8rem;
+      transition: background .2s, color .2s;
+    }
+    .route-card:hover .view-btn {
+      background: #1d4ed8;
+      color: #fff;
+    }
+    /* Card sub-elements */
+
+
+    /* Compact Footer */
+    .main-footer {
+      background-color: #0b2a6b;
+      color: #cbd5e1;
+      padding: 20px 5vw;
+      position: relative;
+      z-index: 10;
+      font-size: 14px;
+    }
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .footer-name {
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 15px;
+    }
+    .footer-contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+    }
+    .footer-contact-row a {
+      color: #cbd5e1;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-contact-row a:hover { color: #93c5fd; }
+    .footer-contact-row i { color: #93c5fd; margin-right: 6px; }
+    .footer-social { display: flex; gap: 12px; }
+    .footer-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.1);
+      color: #ffffff;
+      border-radius: 50%;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+    .footer-social a:hover {
+      background: #93c5fd;
+      color: #0b2a6b;
+      transform: translateY(-2px);
+    }
+    .footer-copy {
+      width: 100%;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 13px;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    @media (max-width: 768px) {
+      .upper-bar .logo { height: 60px; }
+      .carousel-container { margin: 20px auto; width: calc(100% - 20px); border-radius: 16px; }
+      h1.page-title { font-size: 2.2rem; margin: 20px 0 5px; }
+      
+      /* Arrange Stats Strip on one row */
+      .stats-strip { gap: 0.5rem; flex-wrap: nowrap; padding: 0 10px; margin: 1.5rem auto; }
+      .stat-item { min-width: unset; padding: 0.6rem 0.8rem; flex: 1 1 0; }
+      .stat-item strong { font-size: 1.1rem; }
+      .stat-item span { font-size: 0.6rem; letter-spacing: 0; }
+
+      /* Mobile Marquee & Card Adjustments */
+      .section-header { padding: 0 1.5rem 1rem; flex-direction: column; gap: 10px; align-items: flex-start; }
+      .section-header h2 { font-size: 1.3rem; }
+      .marquee-track { padding: 1.5rem 1rem 2rem; gap: 1rem; }
+      .route-card { flex: 0 0 240px; border-radius: 18px; }
+      .card-header { padding: 1rem 1.2rem 0.8rem; }
+      .card-route-name { font-size: 1rem; }
+      .card-route-name span { font-size: 0.75rem; }
+      .route-badge { font-size: 0.65rem; padding: 0.2rem 0.6rem; }
+      
+      .card-body { padding: 1rem 1.2rem; gap: 0.6rem; }
+      .card-meta { font-size: 0.75rem; }
+      .card-meta .meta-icon { width: 22px; height: 22px; font-size: 0.7rem; }
+      
+      .card-footer { padding: 0.8rem 1.2rem; }
+      .card-driver-name { font-size: 0.75rem; }
+      .card-avatar { width: 28px; height: 28px; font-size: 0.65rem; }
+      .view-btn { font-size: 0.75rem; padding: 0.3rem 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Startup Modal -->
+  <div id="startup-modal" onclick="if(event.target===this){this.style.opacity='0';setTimeout(()=>this.style.display='none',400)}" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(11, 42, 107, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.4s ease;">
+    <div style="position: relative; max-width: 90%; max-height: 90%;">
+      <span onclick="var m=document.getElementById('startup-modal');m.style.opacity='0';setTimeout(function(){m.style.display='none'},400)" style="position: absolute; top: -15px; right: -15px; background: white; color: #0b2a6b; border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; font-weight: bold; cursor: pointer; font-size: 26px; box-shadow: 0 0 20px rgba(0,0,0,0.5); z-index: 10000; user-select: none;">&times;</span>
+      <img src="Poster main home.jpeg" alt="Welcome Poster" style="max-width: 100%; max-height: 85vh; border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.6);">
+    </div>
+  </div>
+
+
+  <div class="liquid-bg"></div>
+
+  <nav class="upper-bar">
+    <img src="logo2.png" alt="College Logo" class="logo">
+  </nav>
+
+  <!-- Top Poster Carousel -->
+  <div class="carousel-container">
+    <div class="carousel-slide fade"><img src="poster1.jpeg" alt="Poster 1"></div>
+    <div class="carousel-slide fade"><img src="poster2.jpg" alt="Poster 2"></div>
+    <div class="carousel-slide fade"><img src="poster3.jpg" alt="Poster 3"></div>
+    <div class="carousel-slide fade"><img src="poster4.jpeg" alt="Poster 4"></div>
+    <div class="carousel-slide fade"><img src="poster5.jpeg" alt="Poster 5"></div>
+    <div class="carousel-slide fade"><img src="poster6.jpeg" alt="Poster 6"></div>
+    <div class="carousel-slide fade"><img src="poster7.jpg" alt="Poster 7"></div>
+    <div class="carousel-slide fade"><img src="poster8.jpeg" alt="Poster 8"></div>
+    <div class="carousel-slide fade"><img src="poster9.jpg" alt="Poster 9"></div>
+    <div class="carousel-slide fade"><img src="poster10.jpg" alt="Poster 10"></div>
+    <button class="prev" onclick="plusSlides(-1)">❮</button>
+    <button class="next" onclick="plusSlides(1)">❯</button>
+  </div>
+
+  <h1 class="page-title">College Bus Routes</h1>
+  <p class="page-subtitle">Find your daily pickup route, schedule, and driver details.</p>
+
+  <div class="stats-strip">
+    <div class="stat-item"><strong>35</strong><span>Total Routes</span></div>
+    <div class="stat-item"><strong>8:40 AM</strong><span>Campus Arrival</span></div>
+    <div class="stat-item"><strong id="total-stops-stat">—</strong><span>Total Stops</span></div>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-container">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+    <input type="text" id="searchInput" placeholder="Search by route, village, or driver name..." autocomplete="off" />
+  </div>
+
+  <!-- All Bus Routes (Horizontal Marquee) -->
+  <section class="routes-section">
+    <div class="section-header">
+      <h2>All Bus Routes</h2>
+      <span class="results-count" id="results-count">35 routes</span>
+    </div>
+    <div class="marquee-viewport" id="marquee-viewport">
+      <div class="marquee-track" id="marquee-track">
+        <!-- cards injected by JS, duplicated for infinite loop -->
+      </div>
+    </div>
+    <div id="no-results" style="display:none; text-align:center; padding:4rem 1rem; color:#64748b;">
+      <div style="font-size:3rem; margin-bottom:1rem">🔍</div>
+      <p>No routes found. Try different keywords.</p>
+    </div>
+  </section>
+
+  <footer class="main-footer">
+    <div class="footer-row">
+      <span class="footer-name">Dr. D. Y. Patil Polytechnic, Kolhapur</span>
+      <div class="footer-contact-row">
+        <span><i class="fa-solid fa-phone"></i>(0231) 2601235 / 2601236</span>
+        <a href="mailto:info@dypgroup.edu.in"><i class="fa-solid fa-envelope"></i>info@dypgroup.edu.in</a>
+        <a href="https://dypp.dypgroup.edu.in/" target="_blank"><i class="fa-solid fa-globe"></i>dypp.dypgroup.edu.in</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/dyppkop/" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.instagram.com/dypcet_official/" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/company/d-y-patil-group-kolhapur/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+    </div>
+    <div class="footer-copy">&copy; 2026 Dr. D. Y. Patil Polytechnic, Kolhapur. All Rights Reserved. &nbsp;|&nbsp; Approved by AICTE &bull; Affiliated to MSBTE</div>
+  </footer>
+
+  <!-- Route Data Scripts -->
+  <script>
+    const manualRoutes = {
+      'walwa': {
+        no: '01', name: 'Walwa', file: 'walwa-route.html',
+        driver: 'Sudham Jadhav', phone: '8788484105', bus: 'MH09-GJ-3372',
+        stops: [['Walwa','वाळवा','35,550','7:15 AM'],['Islampur','इस्लामपूर','24,800','7:40 AM'],['Kameri','कामेरी','21,900','7:45 AM'],['Eitakari Fata','ऐतकारी फाटा','20,600','7:45 AM'],['Yeloor Fata','येलूर फाटा','19,600','7:50 AM'],['Tandulwadi','तांदुळवाडी','19,600','8:00 AM'],['Kini Ghunaki Fata','किनी घुणकी फाटा','16,100','8:05 AM'],['Watar','वाठार','14,300','8:10 AM'],['Ambap Fata','आंबप फाटा','14,300','8:15 AM'],['DYPCET','डी. वाय. पाटील कॉलेज','—','8:40 AM']]
+      },
+      'ashta': {
+        no: '02', name: 'Ashta', file: 'ashta.html',
+        driver: 'Yallappa Natikar', phone: '7507031912', bus: 'MH09-GJ-5736',
+        stops: [['Ashta','आष्टा','18,900','7:45 AM'],['Bagani','बागणी','17,200','7:55 AM'],['Shigaon','शिगाव','15,500','8:05 AM'],['Bhadole','भाडोळे','13,800','8:10 AM'],['DYPCET','डी. वाय. पाटील कॉलेज','—','8:40 AM']]
+      },
+      'vadgaon': {
+        no: '03', name: 'Vadgaon', file: 'vadgaon-route.html',
+        driver: 'Abhijeet Patil', phone: '9326386565', bus: 'MH09-EM-5351',
+        stops: [['Vadgaon','वडगाव','10,450','8:00 AM'],['Cyrus School','सायरस स्कूल','9,550','8:10 AM'],['Toap Sambhapur','तोप संभापूर','8,700','8:10 AM'],['Chinmay Ganapati','चिन्मय गणपती','7,950','8:15 AM'],['Toap','तोप','7,950','8:20 AM'],['Shiye Fata','शिये फाटा','7,950','8:25 AM'],['Ram Nagar','राम नगर','7,200','8:30 AM'],['DYPCET','डी. वाय. पाटील कॉलेज','—','8:40 AM']]
+      },
+      'sangli': {
+        no: '04', name: 'Sangli', file: 'sangli-route.html',
+        driver: 'Sandip Patil', phone: '8605009313', bus: 'MH09-GJ-5734',
+        stops: [['Sangli','सांगली','25,500','7:40 AM'],['Vishrambag','विश्रामबाग','24,800','7:45 AM'],['Haripur Road','हरिपूर रोड','23,000','7:50 AM'],['Sangliwadi','सांगलीवाडी','21,700','7:55 AM'],['Miraj Road','मिरज रोड','20,300','8:00 AM'],['DYPCET','डी. वाय. पाटील कॉलेज','—','8:40 AM']]
+      },
+      'jaysingpur': {
+        no: '05', name: 'Jaysingpur', file: 'jaysingpur-route.html',
+        driver: 'Mallu Vhanamane', phone: '9892679164', bus: 'MH09-GJ-5731',
+        stops: [['Jaysingpur','जयसिंगपूर','29,750','7:40 AM'],['Chipari Fata','चिपरी फाटा','26,700','7:45 AM'],['Nimshirgaon','निमशिरगाव','23,800','7:50 AM'],['Tardal Fata','तर्दाळ फाटा','23,800','7:50 AM'],['Hatkanangale','हातकणंगले','20,850','7:55 AM'],['DYPCET','डी. वाय. पाटील कॉलेज','—','8:40 AM']]
+      }
+    };
+
+    const routeFileMap = {
+      'yadrav-fata': 'yadrav-fata-route.html', 'sambhaji-chowk': 'sambhaji-chowk-route.html', 'shivanak-wadi': 'shivanak-wadi-route.html',
+      'kabnoor': 'kabnoor-route.html', 'hupari': 'hupari-route.html', 'vasagade': 'vasagade-route.html',
+      'kenwade': 'kenwade-route.html', 'ananth-roto': 'ananth-roto-route.html', 'kasaba-sangaon': 'kasaba-sangaon-route.html',
+      'gokul-shirgaon': 'gokul-shirgaon-route.html', 'gargoti': 'gargoti-route.html', 'mudaltittha': 'mudaltittha-route.html',
+      'shiyewadi': 'shiyewadi-route.html', 'radhanagari': 'radhanagari-route.html', 'ghotavde': 'ghotavde-route.html',
+      'rashivde': 'rashivde-route.html', 'kale': 'kale-route.html', 'sangrul': 'sangrul-route.html',
+      'wakare-fata': 'wakare-fata-route.html', 'malkapur': 'malkapur-route.html', 'kotoli': 'kotoli-route.html',
+      'bidshed': 'bidshed-route.html', 'nana-patil-nagar': 'nana-patil-nagar-route.html', 'shalini-palace': 'shalini-palace-route.html',
+      'washi-naka': 'washi-naka-route.html', 'atigre-fata': 'atigre-fata-route.html', 'shantiniketan': 'shantiniketan-route.html',
+      'kalamba': 'kalamba-route.html', 'hockey-stadium': 'hockey-stadium-route.html', 'sambhaji-nagar': 'sambhaji-nagar-route.html'
+    };
+  </script>
+  <script src="routes-data.js"></script>
+
+  <script>
+    // Build combined routes list
+    const allRoutes = [];
+    for (const [key, r] of Object.entries(manualRoutes)) {
+      allRoutes.push({ ...r, id: key, stopsCount: r.stops.length, firstStop: r.stops[0][0], firstFee: r.stops[0][2], firstTime: r.stops[0][3] });
+    }
+    for (const [key, r] of Object.entries(routeCatalog)) {
+      allRoutes.push({ ...r, id: key, file: routeFileMap[key] || (key + '-route.html'), stopsCount: r.stops.length, firstStop: r.stops[0][0], firstFee: r.stops[0][2], firstTime: r.stops[0][3] });
+    }
+    allRoutes.sort((a, b) => parseInt(a.no) - parseInt(b.no));
+
+    // Stats
+    const totalStops = allRoutes.reduce((sum, r) => sum + r.stopsCount, 0);
+    document.getElementById('total-stops-stat').textContent = totalStops;
+
+    function getInitials(name) { return name.split(' ').slice(0, 2).map(p => p[0] || '').join('').toUpperCase(); }
+
+    function buildCard(r) {
+      const initials = r.driver === 'Not Available' ? '?' : getInitials(r.driver);
+      const feeDisplay = r.firstFee && r.firstFee !== '—' ? `₹${r.firstFee}` : '—';
+      return `
+        <a class="route-card" href="${r.file}" data-id="${r.id}" data-name="${r.name}">
+          <div class="card-header">
+            <div class="card-route-name">${r.name}<span>to Kasba Bawda</span></div>
+            <div class="route-badge">Route ${String(r.no).padStart(2,'0')}</div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="meta-icon">⏰</span><span>Departs <strong>${r.firstTime}</strong> from ${r.firstStop}</span></div>
+            <div class="card-meta"><span class="meta-icon">◉</span><span><strong>${r.stopsCount - 1} stops</strong> along the way</span></div>
+            <div class="card-meta"><span class="meta-icon">💰</span><span>Starts from <strong>${feeDisplay}</strong></span></div>
+          </div>
+          <div class="card-footer">
+            <div class="card-driver"><div class="card-avatar">${initials}</div><span class="card-driver-name">${r.driver}</span></div>
+            <span class="view-btn">View Route →</span>
+          </div>
+        </a>`;
+    }
+
+    const track = document.getElementById('marquee-track');
+    const noResults = document.getElementById('no-results');
+    const countEl = document.getElementById('results-count');
+    const viewport = document.getElementById('marquee-viewport');
+
+    function renderMarquee(list) {
+      track.innerHTML = '';
+      noResults.style.display = 'none';
+      viewport.style.display = 'block';
+      countEl.textContent = `${list.length} route${list.length !== 1 ? 's' : ''}`;
+
+      if (list.length === 0) {
+        noResults.style.display = 'block';
+        viewport.style.display = 'none';
+        return;
+      }
+
+      // Build HTML for one set
+      const cardHTML = list.map(r => buildCard(r)).join('');
+      // Duplicate for seamless infinite loop
+      track.innerHTML = cardHTML + cardHTML;
+
+      // Reset scroll position on render
+      viewport.scrollLeft = 0;
+    }
+    renderMarquee(allRoutes);
+
+    // Auto-scroll loop for the viewport
+    let autoScrollSpeed = 0.5;
+    let isHovering = false;
+    let isSearching = false;
+
+    // Pause on hover
+    viewport.addEventListener('mouseenter', () => isHovering = true);
+    viewport.addEventListener('mouseleave', () => { isHovering = false; isDown = false; });
+    viewport.addEventListener('touchstart', () => isHovering = true, { passive: true });
+    viewport.addEventListener('touchend', () => setTimeout(() => isHovering = false, 1500), { passive: true });
+
+    // Mouse drag to scroll
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    viewport.addEventListener('mousedown', (e) => {
+      isDown = true;
+      viewport.style.cursor = 'grabbing';
+      startX = e.pageX - viewport.offsetLeft;
+      scrollLeft = viewport.scrollLeft;
+    });
+    
+    viewport.addEventListener('mouseup', () => {
+      isDown = false;
+      viewport.style.cursor = 'grab';
+    });
+    
+    viewport.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - viewport.offsetLeft;
+      const walk = (x - startX) * 2; // Scroll speed multiplier
+      viewport.scrollLeft = scrollLeft - walk;
+    });
+
+    // Mouse wheel to scroll horizontally
+    viewport.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      // Added a small multiplier for smoother wheel scrolling
+      viewport.scrollLeft += (e.deltaY || e.deltaX) * 1.5;
+    });
+
+    function autoScroll() {
+      if (!isHovering && !isSearching && track.children.length > allRoutes.length) {
+        viewport.scrollLeft += autoScrollSpeed;
+        // The track has duplicated cards. When we scroll past the first half, instantly jump back to 0.
+        // We use scrollWidth / 2 because the content is exactly duplicated.
+        if (viewport.scrollLeft >= track.scrollWidth / 2) {
+          viewport.scrollLeft -= track.scrollWidth / 2;
+        }
+      }
+      requestAnimationFrame(autoScroll);
+    }
+    requestAnimationFrame(autoScroll);
+
+    // Search — filter + pause animation to show grid when active
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      if (q === '') {
+        isSearching = false;
+        renderMarquee(allRoutes);
+        return;
+      }
+      isSearching = true;
+      const filtered = allRoutes.filter(r =>
+        r.name.toLowerCase().includes(q) || r.no.includes(q) ||
+        r.driver.toLowerCase().includes(q) || r.id.toLowerCase().includes(q)
+      );
+      // On search: pause marquee, show only matching cards
+      track.innerHTML = '';
+      noResults.style.display = 'none';
+      viewport.style.display = 'block';
+      countEl.textContent = `${filtered.length} route${filtered.length !== 1 ? 's' : ''}`;
+      if (filtered.length === 0) {
+        noResults.style.display = 'block';
+        viewport.style.display = 'none';
+        return;
+      }
+      // Show filtered cards without duplication
+      track.innerHTML = filtered.map(r => buildCard(r)).join('');
+    });
+
+
+    // Carousel Logic
+    let slideIndex = 1;
+    function plusSlides(n) { showSlides(slideIndex += n); }
+    function showSlides(n) {
+      let slides = document.getElementsByClassName("carousel-slide");
+      if (slides.length === 0) return;
+      if (n > slides.length) slideIndex = 1;
+      if (n < 1) slideIndex = slides.length;
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("active");
+      }
+      slides[slideIndex - 1].classList.add("active");
+    }
+    showSlides(slideIndex);
+    setInterval(() => plusSlides(1), 5000);
+
+    // Startup Modal Logic
+    const startupModal = document.getElementById('startup-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    if (startupModal && closeModalBtn) {
+      closeModalBtn.addEventListener('click', () => {
+        startupModal.style.opacity = '0';
+        setTimeout(() => startupModal.style.display = 'none', 400);
+      });
+    }
+
+
+
+
+  </script>
+</body>
+</html>
